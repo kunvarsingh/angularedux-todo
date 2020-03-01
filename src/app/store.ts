@@ -4,15 +4,22 @@ import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, REMOVE_ALL_TODOS } from './actions'
 export interface IAppState {
     todos: ITodo[];
     lastUpdate: Date;
+    counter:number
 }
 export const INITIAL_STATE: IAppState = {
     todos: [],
-    lastUpdate: null
+    lastUpdate: null,
+    counter:0
 }
 
 
 export function rootReducer(state: IAppState, action): IAppState {
     switch (action.type) {
+        case 'increment': 
+        action.counter = action.counter+1;
+        console.log('i am counter',action.counter,action.todos)
+         return Object.assign({},state,{counter: state.counter+1})
+           
         case ADD_TODO:
             action.todo.id = state.todos.length + 1;    
             return Object.assign({}, state, {
