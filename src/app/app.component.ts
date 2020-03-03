@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
+import { INCREMENT } from './actions';
+import {Store} from 'redux';
+import {Observable} from 'rxjs/Observable';
+
 
 @Component({
   selector: 'app-root',
@@ -8,16 +12,18 @@ import { NgRedux, select } from '@angular-redux/store';
 })
 export class AppComponent {
   title = 'angularedux-todo';
-  mycounter = 0;
+  counter : number;
 
-  @select() counter;
-  @select() todos;
-
-  constructor(private ngRedux: NgRedux){
-  	console.log('counter',this.counter,this.todos)
+  constructor(private ngRedux: NgRedux<any>){
+    this.ngRedux.select(t=>{
+      debugger
+    })
+        console.log('i am',this.ngRedux.select('todo').subscribe((a:any)=>{
+          this.counter = a.counter;
+        }))
   }
 
   increment=()=>{
-  	this.ngRedux.dispatch({type:'increment',counter:this.mycounter})
+  	this.ngRedux.dispatch({type:INCREMENT})
   }
 }

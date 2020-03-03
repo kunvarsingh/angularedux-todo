@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
-import { IAppState } from '../store';
+// import { IAppState } from '../store';
 import { ADD_TODO, REMOVE_TODO, TOGGLE_TODO } from '../actions';
 import { ITodo } from '../todo';
 @Component({
@@ -17,7 +17,7 @@ export class TodoListComponent implements OnInit {
     priority: "low",
     isCompleted: false 
   };
-  constructor(private ngRedux: NgRedux<IAppState>) { }
+  constructor(private ngRedux: NgRedux<any>) { }
   ngOnInit() {
   }
   onSubmit() {

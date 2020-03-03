@@ -7,8 +7,22 @@ import { TodoOverviewComponent } from './todo-overview/todo-overview.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { FormsModule } from '@angular/forms';
 import { NgRedux, NgReduxModule } from '@angular-redux/store';
+import { createLogger } from 'redux-logger';
+// import { IAppState, rootReducer, INITIAL_STATE } from './store';
+import rootReducer  from './store';
+import {
+  applyMiddleware,
+  Store,
+  combineReducers,
+  compose,
+  createStore,
+} from 'redux';
 
-import { IAppState, rootReducer, INITIAL_STATE } from './store';
+
+export const store: Store<any> = createStore(
+  rootReducer,
+  applyMiddleware(createLogger()),
+);
 
 @NgModule({
   declarations: [
@@ -26,7 +40,10 @@ import { IAppState, rootReducer, INITIAL_STATE } from './store';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor (ngRedux: NgRedux<IAppState>) {
-        ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  constructor (ngRedux: NgRedux<any>) {
+        // ngRedux.configureStore(rootReducer, INITIAL_STATE);
+         // ngRedux.configureStore(rootReducer, {},[createLogger()]);
+             ngRedux.provideStore(store);
+
     }
  }
